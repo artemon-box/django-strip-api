@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "django-strip-api"
+version = "0.1.0"
+description = ""
+authors = ["Артем Тарасов <artemon_box@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "4.2.8"
+black = "^23.12.0"
+environs = "^10.0.0"
+stripe = "^7.9.0"
+djangorestframework = "^3.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

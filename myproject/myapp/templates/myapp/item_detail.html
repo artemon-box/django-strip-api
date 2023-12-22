@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        button {
+            color: #fff;
+            background: #5993bb;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        div {
+            text-align: center;
+        }
+    </style>
+    <title>{{ item.name }}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<div>
+    <h1>{{ item.name }}</h1>
+    <p>Description: {{ item.description }}</p>
+    <p>Price: {{ item.price }}$</p>
+    <button type="button" id="buyButton">Buy</button>
+</div>
+<script>
+    let stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+    let buyButton = document.querySelector('#buyButton');
+    buyButton.addEventListener('click', async () => {
+        try {
+            const response = await fetch("{% url 'myapp:stripe_session_id' item.id %}");
+            const {session_id} = await response.json();
+            stripe.redirectToCheckout({sessionId: session_id});
+        } catch (error) {
+            console.error(error);
+        }
+    });
+</script>
+</body>
+</html>
